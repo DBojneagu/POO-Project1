@@ -8,19 +8,33 @@ class Student {
       int an_nastere ;
       int numar_credite ;
       double media_generala ;
-      Student();
-      ~Student();
+
   public :
-    friend istream& operator>>(istream &i, Student&s);
-    friend ostream& operator<<(ostream &o, Student&s);
-    void afis_nume();
-    void afis_an_nastere();
-    void afis_numar_credite();
-    void afis_media_generala();
-    void afis_student();
 
 
-};
+     Student() { nume = "Anonim" ; an_nastere = 2022; numar_credite = 0; media_generala = 0.5 ;};
+
+    friend istream & operator >> (istream & in, Student & s)
+
+    {
+        cout << "Supraincarcare citire " << endl;
+        in >> s.nume >> s.an_nastere >> s.numar_credite >> s.media_generala  ;
+        cout << endl ;
+
+        return in;
+    }
+
+    friend ostream & operator << (ostream & out , const Student & s)
+        {
+            out <<  "Supraincarcare afisare" << endl << "Nume : " << s.nume << endl << "An nastere : " << s.an_nastere << endl << "Numar credite : "  << s.numar_credite << endl << " Media Generala: "  << s.media_generala << endl << " " ;
+            return out;
+        }
+
+
+
+
+} ;
+
 
 class Grupa {
 
@@ -38,17 +52,10 @@ class Grupa {
 
 int main() {
 
-
-  return 0 ;
+    Student A;
+    cin >> A;
+    cout << A;
+    return 0 ;
 }
 
-istream& operator>>(istream &i, Student&s)
-{
-    i >> s.nume >> s.an_nastere >> s.numar_credite >> s.media_generala ;
-    return i;
-}
 
-ostream& operator<<(ostream &o, Student&s)
-{
-    o << s.nume << s.an_nastere << s.numar_credite << s.media_generala ;
-}
