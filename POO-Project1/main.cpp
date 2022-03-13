@@ -33,15 +33,15 @@ class Student {
     return out;
   }
 
-  void afis_nume(Student & s);
-  void afis_an_nastere(Student & s);
-  void afis_numar_credite(Student & s);
-  void afis_media_generala(Student & s);
-
   void set_nume(Student & s);
   void set_an_nastere(Student & s);
   void set_numar_credite(Student & s);
   void set_media_generala(Student & s);
+
+  void afis_nume(Student & s);
+  void afis_an_nastere(Student & s);
+  void afis_numar_credite(Student & s);
+  void afis_media_generala(Student & s);
 
 };
 
