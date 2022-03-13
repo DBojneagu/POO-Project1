@@ -26,17 +26,12 @@ class Student {
 
     friend ostream & operator << (ostream & out , const Student & s)
         {
-            out <<  "Supraincarcare afisare" << endl << "Nume : " << s.nume << endl << "An nastere : " << s.an_nastere << endl << "Numar credite : "  << s.numar_credite << endl << " Media Generala: "  << s.media_generala << endl << " " ;
+            out <<  "Supraincarcare afisare" << endl << "Nume : " << s.nume << endl << "An nastere : " << s.an_nastere << endl << "Numar credite : "  << s.numar_credite << endl << "Media Generala: "  << s.media_generala << endl << " " ;
             return out;
         }
 
 
 
-    int nr_studenti;
-    double media_grupei ;
-    Grupa();
-    ~Grupa();
-   public :
 
 } ;
 
