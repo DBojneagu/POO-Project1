@@ -32,6 +32,11 @@ class Student {
 
 
 
+    int nr_studenti;
+    double media_grupei ;
+    Grupa();
+    ~Grupa();
+   public :
 
 } ;
 
