@@ -2,46 +2,46 @@
 
 using namespace std;
 
-class Student {
+class Joc {
   string nume;
-  int an_nastere;
+  int an_aparitie;
   int numar_credite;
   double media_generala;
 
   public:
 
-    Student() {
+    Joc() {
       nume = "Anonim";
-      an_nastere = 2022;
+      an_aparitie = 2022;
       numar_credite = 0;
       media_generala = 0.5;
     };
-  ~Student() {
+  ~Joc() {
     delete this;
   };
-  Student & operator = (Student & s);
+  Joc & operator = (Joc & j);
 
-  friend istream & operator >> (istream & in , Student & s) {
-    cout << "Supraincarcare citire " << endl; in >> s.nume >> s.an_nastere >> s.numar_credite >> s.media_generala;
+  friend istream & operator >> (istream & in , Joc & j) {
+    cout << "Supraincarcare citire " << endl; in >> j.nume >> j.an_aparitie >> j.numar_credite >> j.media_generala;
     cout << endl;
 
     return in;
   }
   friend ostream & operator << (ostream & out,
-    const Student & s) {
-    out << "Supraincarcare afisare" << endl << "Nume : " << s.nume << endl << "An nastere : " << s.an_nastere << endl << "Numar credite : " << s.numar_credite << endl << "Media Generala: " << s.media_generala << endl << endl;
+    const Joc & j) {
+    out << "Supraincarcare afisare" << endl << "Nume : " << j.nume << endl << "An Aparitie : " << j.an_aparitie << endl << "Numar credite : " << j.numar_credite << endl << "Media Generala: " << j.media_generala << endl << endl;
     return out;
   }
 
-  void set_nume(Student & s);
-  void set_an_nastere(Student & s);
-  void set_numar_credite(Student & s);
-  void set_media_generala(Student & s);
+  void set_nume(Joc & j);
+  void set_an_aparitie(Joc & j);
+  void set_numar_credite(Joc & j);
+  void set_media_generala(Joc & j);
 
-  void afis_nume(Student & s);
-  void afis_an_nastere(Student & s);
-  void afis_numar_credite(Student & s);
-  void afis_media_generala(Student & s);
+  void afis_nume(Joc & j);
+  void afis_an_aparitie(Joc & j);
+  void afis_numar_credite(Joc & j);
+  void afis_media_generala(Joc & j);
 
 };
 
@@ -53,7 +53,7 @@ class Grupa {
   ~Grupa();
   public:
 
-    void elim_student();
+  void elim_student();
   void add_student();
   void check_by_name();
 
@@ -61,20 +61,20 @@ class Grupa {
 
 int main() {
 
-  Student A;
+  Joc A;
 
-  Student C;
+  Joc C;
   cin >> A;
   C = A;
   cout << A;
   cout << C;
 
-  Student B;
+  Joc B;
 
   B.afis_nume(B);
 
-  B.set_an_nastere(B);
-  B.afis_an_nastere(B);
+  B.set_an_aparitie(B);
+  B.afis_an_aparitie(B);
 
   B.afis_numar_credite(B);
 
@@ -83,43 +83,43 @@ int main() {
   return 0;
 }
 
-void Student::afis_nume(Student & s) {
-  cout << "Nume: " << s.nume << endl;
+void Joc::afis_nume(Joc & j) {
+  cout << "Nume: " << j.nume << endl;
 }
-void Student::afis_an_nastere(Student & s) {
-  cout << "An nastere: " << s.an_nastere << endl;
+void Joc::afis_an_aparitie(Joc & j) {
+  cout << "An Aparitie: " << j.an_aparitie << endl;
 }
-void Student::afis_numar_credite(Student & s) {
-  cout << "Numar credite: " << s.numar_credite << endl;
+void Joc::afis_numar_credite(Joc & j) {
+  cout << "Numar credite: " << j.numar_credite << endl;
 }
-void Student::afis_media_generala(Student & s) {
-  cout << "Media Generala: " << s.media_generala << endl;
+void Joc::afis_media_generala(Joc & j) {
+  cout << "Media Generala: " << j.media_generala << endl;
 }
 
-void Student::set_nume(Student & s) {
+void Joc::set_nume(Joc & j) {
   cout << "Nume " << endl;
-  cin >> s.nume;
+  cin >> j.nume;
 }
-void Student::set_an_nastere(Student & s) {
-  cout << "An Nastere " << endl;
-  cin >> s.an_nastere;
+void Joc::set_an_aparitie(Joc & j) {
+  cout << "An Aparitie " << endl;
+  cin >> j.an_aparitie;
 }
-void Student::set_numar_credite(Student & s) {
+void Joc::set_numar_credite(Joc & j) {
   cout << "Numar credite: " << endl;
-  cin >> s.numar_credite;
+  cin >> j.numar_credite;
 }
-void Student::set_media_generala(Student & s) {
+void Joc::set_media_generala(Joc & j) {
   cout << "Medie Generala " << endl;
-  cin >> s.media_generala;
+  cin >> j.media_generala;
 }
 
-Student & Student::operator = (Student & s) {
-  if (this != & s) {
+Joc & Joc::operator = (Joc & j) {
+  if (this != & j) {
     cout << "operator de atribuire explicit: ";
-    nume = s.nume;
-    an_nastere = s.an_nastere;
-    numar_credite = s.numar_credite;
-    media_generala = s.media_generala;
+    nume = j.nume;
+    an_aparitie = j.an_aparitie;
+    numar_credite = j.numar_credite;
+    media_generala = j.media_generala;
 
   }
   return *this;
