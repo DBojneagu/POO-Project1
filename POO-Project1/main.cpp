@@ -52,13 +52,15 @@ void fillVector(vector < Joc > & );
 
 void printVector(const vector < Joc > & );
 
+void RemoveLastGame(vector <Joc> &);
+
 int main() {
   int choice;
 
   vector < Joc > myClass;
 
   do {
-    cout << "Salut! Ce doresti sa faci mai departe?" << endl << "1. Incarca jocurile " << endl << "2. Afiseaza Jocurile" << endl << "3. Iesi din program" << endl;
+    cout << "Salut! Ce doresti sa faci mai departe?" << endl << "1. Incarca jocurile " << endl << "2. Afiseaza Jocurile" << endl << "3. Sterge ultimul joc " << endl << "4. Iesi din program" << endl;
     cin >> choice;
     switch (choice) {
     case 1:
@@ -68,12 +70,15 @@ int main() {
       printVector(myClass);
       break;
     case 3:
+      RemoveLastGame(myClass);
+      break;
+    case 4:
       return 0;
 
     }
 
   }
-  while (choice != 3);
+  while (choice != 4);
 
 }
 
@@ -92,6 +97,11 @@ void fillVector(vector < Joc > & newMyClass) {
     cout << endl;
   }
   cout << endl;
+}
+
+void RemoveLastGame(vector <Joc> & newMyClass)
+{
+    newMyClass.pop_back();
 }
 
 Joc::Joc(string name, string nume_comp, string engine_joc, string gen, int hours, double rating_) {
