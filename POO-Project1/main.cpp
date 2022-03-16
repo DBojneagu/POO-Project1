@@ -8,11 +8,15 @@ using namespace std;
 
 class Joc {
   string nume;
+  string game_engine;
+  string nume_companie;
+  string gen_joc;
   int ore_totale_de_joc;
+  double rating;
 
   public:
 
-    Joc(string, int);
+    Joc(string, string, string, string, int, double);
 
   Joc() {
     nume = "Anonim";
@@ -24,7 +28,11 @@ class Joc {
 
   friend istream & operator >> (istream & in , Joc & j) {
     cout << "Introduceti numele : "; in >> j.nume;
+    cout << "Introduceti game engine-ul : "; in >> j.game_engine;
+    cout << "Introduceti numele companiei : "; in >> j.nume_companie;
+    cout << "Introduceti genul jocului : "; in >> j.gen_joc;
     cout << "Introduceti numarul total de ore de joc : "; in >> j.ore_totale_de_joc;
+    cout << "Introduceti rating-ul jocului : "; in >> j.rating;
     cout << endl;
 
     return in;
@@ -32,7 +40,7 @@ class Joc {
 
   friend ostream & operator << (ostream & out,
     const Joc & j) {
-    out << "Game Name : " << j.nume << endl << "Total Game Hours : " << j.ore_totale_de_joc << endl;
+    out << "Numele jocului : " << j.nume << endl << "Game Engine-ul Jocului : " << j.game_engine << endl << "Numele Companiei : " << j.nume_companie << endl << "Genul Jocului : " << j.gen_joc << endl << "Numar total ore de joc " << j.ore_totale_de_joc << endl << "Rating : " << j.rating << endl;
     return out;
   }
 
@@ -79,17 +87,20 @@ void fillVector(vector < Joc > & newMyClass) {
   for (int i = 0; i < classSize; i++) {
     cin >> aux;
 
-    Joc newJoc(aux.nume, aux.ore_totale_de_joc);
+    Joc newJoc(aux.nume, aux.nume_companie, aux.game_engine, aux.gen_joc, aux.ore_totale_de_joc, aux.rating);
     newMyClass.push_back(newJoc);
     cout << endl;
   }
   cout << endl;
 }
 
-Joc::Joc(string name, int hours) {
+Joc::Joc(string name, string nume_comp, string engine_joc, string gen, int hours, double rating_) {
   nume = name;
+  nume_companie = nume_comp;
+  game_engine = engine_joc;
+  gen_joc = gen;
   ore_totale_de_joc = hours;
-
+  rating = rating_;
 }
 
 void printVector(const vector < Joc > & newMyClass) {
