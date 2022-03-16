@@ -19,6 +19,22 @@ class Joc {
 
     string getName() const;
     int getHours() const;
+
+    friend istream & operator >> (istream & in , Joc & j) {
+    cout << "Introduceti numele : " ; in >> j.nume ; cout << "Introduceti numarul total de ore de joc : " ; in >> j.ore_totale_de_joc ;
+    cout << endl;
+
+    return in;
+  }
+
+    friend ostream & operator << (ostream & out,
+    const Joc & j) {
+    out << "Game Name : " << j.nume << endl  << "Total Game Hours : " << j.ore_totale_de_joc <<endl;
+    return out;
+  }
+
+    friend void fillVector(vector<Joc>&);
+    friend void printVector(const vector<Joc>&);
 };
 
 void fillVector(vector<Joc>&);
@@ -38,21 +54,16 @@ int main() {
 }
 
 void fillVector(vector<Joc>& newMyClass) {
-    string name;
-    int hours;
+     Joc aux;
 
     cout << " Introduceti numarul total de jocuri : " ;
     int classSize;
     cin >> classSize ;
 
     for (int i = 0;i < classSize; i++){
-        cout << "Enter Game Name : ";
-        cin >> name ;
-        cout << "Enter total hours : " ;
-        cin >> hours ;
+        cin >> aux;
 
-
-        Joc newJoc(name, hours);
+        Joc newJoc(aux.nume, aux.ore_totale_de_joc);
         newMyClass.push_back(newJoc);
         cout << endl;
     }
@@ -70,10 +81,7 @@ void printVector(const vector<Joc>& newMyClass) {
     unsigned int size = newMyClass.size();
 
     for ( unsigned int i = 0; i < size; i++) {
-            cout << "Game Number " << i + 1 << endl ;
-            cout << "Game name : " << newMyClass[i].getName() << endl;
-            cout << "Total hours of gameplay : " << newMyClass[i].getHours() << endl;
-            cout << endl ;
+            cout << "--------Game number " << i + 1 << "----------" << endl <<  newMyClass[i] << endl;
 
     }
 }
