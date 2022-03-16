@@ -1,112 +1,88 @@
 #include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
 class Joc {
   string nume;
-  int an_aparitie;
   int ore_totale_de_joc;
-  double rating;
 
   public:
 
+    Joc(string,int);
+
     Joc() {
       nume = "Anonim";
-      an_aparitie = 2022;
       ore_totale_de_joc = 0;
-      rating = 0.5;
     };
-  ~Joc() {
-    delete this;
-  };
-  Joc & operator = (Joc & j);
 
-  friend istream & operator >> (istream & in , Joc & j) {
-    cout << "Supraincarcare citire " << endl; in >> j.nume >> j.an_aparitie >> j.ore_totale_de_joc >> j.rating;
-    cout << endl;
-
-    return in;
-  }
-  friend ostream & operator << (ostream & out,
-    const Joc & j) {
-    out << "Supraincarcare afisare" << endl << "Nume : " << j.nume << endl << "An Aparitie : " << j.an_aparitie << endl << "Numar ore de joc : " << j.ore_totale_de_joc << endl << "rating : " << j.rating << endl << endl;
-    return out;
-  }
-
-  void set_nume(Joc & j);
-  void set_an_aparitie(Joc & j);
-  void set_ore_totale_de_joc(Joc & j);
-  void set_rating(Joc & j);
-
-  void afis_nume(Joc & j);
-  void afis_an_aparitie(Joc & j);
-  void afis_ore_totale_de_joc(Joc & j);
-  void afis_rating(Joc & j);
-
+    string getName() const;
+    int getHours() const;
 };
+
+void fillVector(vector<Joc>&);
+
+
+void printVector(const vector<Joc>&);
+
 
 int main() {
 
-  Joc A;
+   vector<Joc> myClass;
 
-  Joc C;
-  cin >> A;
-  C = A;
-  cout << A;
-  cout << C;
+   fillVector(myClass);
+   printVector(myClass);
 
-  Joc B;
-
-  B.afis_nume(B);
-
-  B.set_an_aparitie(B);
-  B.afis_an_aparitie(B);
-
-  B.afis_ore_totale_de_joc(B);
-
-  B.afis_rating(B);
-
-  return 0;
+   return 0;
 }
 
-void Joc::afis_nume(Joc & j) {
-  cout << "Nume: " << j.nume << endl;
-}
-void Joc::afis_an_aparitie(Joc & j) {
-  cout << "An Aparitie: " << j.an_aparitie << endl;
-}
-void Joc::afis_ore_totale_de_joc(Joc & j) {
-  cout << "Numar ore totale de joc : " << j.ore_totale_de_joc << endl;
-}
-void Joc::afis_rating(Joc & j) {
-  cout << "rating :  " << j.rating << endl;
+void fillVector(vector<Joc>& newMyClass) {
+    string name;
+    int hours;
+
+    cout << " Introduceti numarul total de jocuri : " ;
+    int classSize;
+    cin >> classSize ;
+
+    for (int i = 0;i < classSize; i++){
+        cout << "Enter Game Name : ";
+        cin >> name ;
+        cout << "Enter total hours : " ;
+        cin >> hours ;
+
+
+        Joc newJoc(name, hours);
+        newMyClass.push_back(newJoc);
+        cout << endl;
+    }
+    cout << endl;
 }
 
-void Joc::set_nume(Joc & j) {
-  cout << "Nume " << endl;
-  cin >> j.nume;
-}
-void Joc::set_an_aparitie(Joc & j) {
-  cout << "An Aparitie " << endl;
-  cin >> j.an_aparitie;
-}
-void Joc::set_ore_totale_de_joc(Joc & j) {
-  cout << "Numar ore totale de joc: " << endl;
-  cin >> j.ore_totale_de_joc;
-}
-void Joc::set_rating(Joc & j) {
-  cout << "rating " << endl;
-  cin >> j.rating;
+Joc::Joc(string name, int hours){
+    nume = name ;
+    ore_totale_de_joc = hours ;
+
 }
 
-Joc & Joc::operator = (Joc & j) {
-  if (this != & j) {
-    cout << "operator de atribuire explicit: ";
-    nume = j.nume;
-    an_aparitie = j.an_aparitie;
-    ore_totale_de_joc = j.ore_totale_de_joc;
-    rating = j.rating;
+void printVector(const vector<Joc>& newMyClass) {
 
-  }
-  return *this;
+    unsigned int size = newMyClass.size();
+
+    for ( unsigned int i = 0; i < size; i++) {
+            cout << "Game Number " << i + 1 << endl ;
+            cout << "Game name : " << newMyClass[i].getName() << endl;
+            cout << "Total hours of gameplay : " << newMyClass[i].getHours() << endl;
+            cout << endl ;
+
+    }
 }
+
+string Joc::getName() const {
+       return nume;
+}
+
+int Joc :: getHours () const {
+       return ore_totale_de_joc;
+}
+
