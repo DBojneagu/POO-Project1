@@ -54,13 +54,24 @@ void printVector(const vector < Joc > & );
 
 void RemoveLastGame(vector <Joc> &);
 
-int main() {
-  int choice;
+void RecomandaJoc();
+
+void Shooter();
+void Shooter_Multiplayer();
+void Shooter_Singleplayer();
+void Moba();
+void Adventure();
+
+int Menu();
+
+int Menu() {
+
+    int choice;
 
   vector < Joc > myClass;
 
   do {
-    cout << "Salut! Ce doresti sa faci mai departe?" << endl << "1. Incarca jocurile " << endl << "2. Afiseaza Jocurile" << endl << "3. Sterge ultimul joc " << endl << "4. Iesi din program" << endl;
+    cout << "Salut! Ce doresti sa faci mai departe?" << endl << "1. Incarca jocurile " << endl << "2. Afiseaza Jocurile" << endl << "3. Sterge ultimul joc " << endl << "4. Lasa sa-ti recomand un joc!" << endl << "5. Iesi din Program" << endl;
     cin >> choice;
     switch (choice) {
     case 1:
@@ -73,12 +84,19 @@ int main() {
       RemoveLastGame(myClass);
       break;
     case 4:
-      return 0;
+      RecomandaJoc();
+
+    case 5:
+        return 0;
 
     }
 
   }
-  while (choice != 4);
+  while (choice != 5);
+}
+int main() {
+
+  Menu();
 
 }
 
@@ -122,6 +140,47 @@ void printVector(const vector < Joc > & newMyClass) {
 
   }
 }
+
+void RecomandaJoc(){
+    cout << "Iti voi adresa o serie de intrebari, iar pe baza acestor raspunsuri iti voi recomanda un joc!" << endl  << "Pentru inceput : Ce gen de jocuri preferi? " << endl << "1.Shooter " << endl << "2. Moba " << endl << "3. Adventure " << endl;
+    int choice;
+    cin >> choice;
+    switch(choice){
+case 1 :
+    Shooter();
+    break;
+//case 2:
+  //  Moba();
+//case 3:
+  //  Adventure();
+
+    }
+}
+
+void Shooter(){
+   cout << "Shooter sa inteleg, buna alegere! Ai dorii ca acesta sa fie multiplayer sau singleplayer?" << endl << "1. Multiplayer" << endl << "2. SinglePlayer" << endl;
+   int choice;
+   cin >> choice ;
+   switch(choice) {
+   case 1:
+       Shooter_Multiplayer();
+       break;
+   case 2:
+       Shooter_Singleplayer();
+       break;
+   }
+}
+
+void Shooter_Singleplayer(){
+    cout << "Iti recomand jocul : Halo " << endl << endl  << "Numele jocului : Halo "  << endl << "Game Engine-ul Jocului : Halo: Combat Evolved " << endl << "Numele Companiei : Bungie Inc " <<  endl << "Genul Jocului : Shooter "  << endl << "Numar total ore de joc : 10 ore " <<  endl << "Rating : 8.7 "  << endl << endl;
+    Menu();
+
+}
+
+void Shooter_Multiplayer(){
+    cout << "Iti recomand jocul : Call of Duty" << endl << endl ;
+    Menu();
+    }
 
 string Joc::getName() const {
   return nume;
