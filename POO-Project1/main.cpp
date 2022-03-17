@@ -228,7 +228,7 @@ void Adventure(vector < Joc > & myClass) {
   }
 }
 
-void Shooter_Singleplayer(vector < Joc > & myClass) {
+void Shooter_Singleplayer(vector < Joc > & myClass ) {
   cout << "Iti recomand jocul : Halo " << endl << endl << "Numele jocului : Halo " << endl << "Game Engine-ul Jocului : Halo: Combat Evolved " << endl << "Numele Companiei : Bungie Inc " << endl << "Genul Jocului : Shooter " << endl << "Numar total ore de joc : 10 ore " << endl << "Rating : 8.7 " << endl << endl;
   Menu(myClass);
 
