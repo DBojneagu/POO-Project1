@@ -7,6 +7,7 @@
 using namespace std;
 
 class Joc {
+
   string nume;
   string game_engine;
   string nume_companie;
@@ -21,10 +22,36 @@ class Joc {
   Joc() {
     nume = "Anonim";
     ore_totale_de_joc = 0;
+    nume_companie = "Anonim";
+    gen_joc = "Anonim";
+    rating = 0;
   };
 
-  string getName() const;
-  int getHours() const;
+  string getName();
+  string getGame_engine();
+  string getNume_Companie();
+  string getGen_Joc();
+  int getHours();
+  double getRating();
+
+  void setName(string n) {
+    nume = n;
+  }
+  void setGame_engine(string g) {
+    game_engine = g;
+  }
+  void setNume_Companie(string nc) {
+    nume_companie = nc;
+  }
+  void setGen_Joc(string g) {
+    gen_joc = g;
+  }
+  void setHours(int h) {
+    ore_totale_de_joc = h;
+  }
+  void setRating(double r) {
+    rating = r;
+  }
 
   friend istream & operator >> (istream & in , Joc & j) {
     cout << "Introduceti numele : "; in >> j.nume;
@@ -52,26 +79,26 @@ void fillVector(vector < Joc > & );
 
 void printVector(const vector < Joc > & );
 
-void RemoveLastGame(vector <Joc> &);
+void RemoveLastGame(vector < Joc > & );
 
-void RecomandaJoc();
+void RecomandaJoc(vector < Joc > & );
 
-void Shooter();
-void Shooter_Multiplayer();
-void Shooter_Singleplayer();
-void Moba();
-void Adventure();
+void Shooter(vector < Joc > & );
+void Shooter_Multiplayer(vector < Joc > & );
+void Shooter_Singleplayer(vector < Joc > & );
+void Moba(vector < Joc > & );
+void Moba_Multiplayer(vector < Joc > & );
+void Moba_Singleplayer(vector < Joc > & );
+void Adventure(vector < Joc > & );
+void Adventure_Multiplayer(vector < Joc > & );
+void Adventure_Singleplayer(vector < Joc > & );
 
-int Menu();
+int Menu(vector < Joc > myClass) {
 
-int Menu() {
-
-    int choice;
-
-  vector < Joc > myClass;
+  int choice;
 
   do {
-    cout << "Salut! Ce doresti sa faci mai departe?" << endl << "1. Incarca jocurile " << endl << "2. Afiseaza Jocurile" << endl << "3. Sterge ultimul joc " << endl << "4. Lasa sa-ti recomand un joc!" << endl << "5. Iesi din Program" << endl;
+    cout << "Salut! Ce doresti sa faci mai departe?" << endl << "1. Incarca jocurile " << endl << "2. Afiseaza Jocurile" << endl << "3. Sterge ultimul joc " << endl << "4. Lasa sa-ti recomand un joc!" << endl << "5. Iesi din program" << endl << endl;
     cin >> choice;
     switch (choice) {
     case 1:
@@ -84,10 +111,10 @@ int Menu() {
       RemoveLastGame(myClass);
       break;
     case 4:
-      RecomandaJoc();
-
+      RecomandaJoc(myClass);
+      break;
     case 5:
-        return 0;
+      return 0;
 
     }
 
@@ -96,7 +123,8 @@ int Menu() {
 }
 int main() {
 
-  Menu();
+  vector < Joc > myClass;
+  Menu(myClass);
 
 }
 
@@ -117,9 +145,8 @@ void fillVector(vector < Joc > & newMyClass) {
   cout << endl;
 }
 
-void RemoveLastGame(vector <Joc> & newMyClass)
-{
-    newMyClass.pop_back();
+void RemoveLastGame(vector < Joc > & newMyClass) {
+  newMyClass.pop_back();
 }
 
 Joc::Joc(string name, string nume_comp, string engine_joc, string gen, int hours, double rating_) {
@@ -141,51 +168,117 @@ void printVector(const vector < Joc > & newMyClass) {
   }
 }
 
-void RecomandaJoc(){
-    cout << "Iti voi adresa o serie de intrebari, iar pe baza acestor raspunsuri iti voi recomanda un joc!" << endl  << "Pentru inceput : Ce gen de jocuri preferi? " << endl << "1.Shooter " << endl << "2. Moba " << endl << "3. Adventure " << endl;
-    int choice;
-    cin >> choice;
-    switch(choice){
-case 1 :
-    Shooter();
+void RecomandaJoc(vector < Joc > & myClass) {
+  cout << "Iti voi adresa o serie de intrebari, iar pe baza acestor raspunsuri iti voi recomanda un joc!" << endl << "Pentru inceput : Ce gen de jocuri preferi? " << endl << "1.Shooter " << endl << "2. Moba " << endl << "3. Adventure " << endl;
+  int choice;
+  cin >> choice;
+  switch (choice) {
+  case 1:
+    Shooter(myClass);
     break;
-//case 2:
-  //  Moba();
-//case 3:
-  //  Adventure();
+  case 2:
+    Moba(myClass);
+    break;
+  case 3:
+    Adventure(myClass);
+    break;
 
-    }
+  }
 }
 
-void Shooter(){
-   cout << "Shooter sa inteleg, buna alegere! Ai dorii ca acesta sa fie multiplayer sau singleplayer?" << endl << "1. Multiplayer" << endl << "2. SinglePlayer" << endl;
-   int choice;
-   cin >> choice ;
-   switch(choice) {
-   case 1:
-       Shooter_Multiplayer();
-       break;
-   case 2:
-       Shooter_Singleplayer();
-       break;
-   }
+void Shooter(vector < Joc > & myClass) {
+  cout << "Shooter sa inteleg, buna alegere! Ai dorii ca acesta sa fie multiplayer sau singleplayer?" << endl << "1. Multiplayer" << endl << "2. SinglePlayer" << endl;
+  int choice;
+  cin >> choice;
+  switch (choice) {
+  case 1:
+    Shooter_Multiplayer(myClass);
+    break;
+  case 2:
+    Shooter_Singleplayer(myClass);
+    break;
+  }
 }
 
-void Shooter_Singleplayer(){
-    cout << "Iti recomand jocul : Halo " << endl << endl  << "Numele jocului : Halo "  << endl << "Game Engine-ul Jocului : Halo: Combat Evolved " << endl << "Numele Companiei : Bungie Inc " <<  endl << "Genul Jocului : Shooter "  << endl << "Numar total ore de joc : 10 ore " <<  endl << "Rating : 8.7 "  << endl << endl;
-    Menu();
+void Moba(vector < Joc > & myClass) {
+  cout << "Moba sa inteleg, buna alegere! Ai dorii ca acesta sa fie multiplayer sau singleplayer?" << endl << "1. Multiplayer" << endl << "2. SinglePlayer" << endl;
+  int choice;
+  cin >> choice;
+  switch (choice) {
+  case 1:
+    Moba_Multiplayer(myClass);
+    break;
+  case 2:
+    Moba_Singleplayer(myClass);
+    break;
+  }
+}
+
+void Adventure(vector < Joc > & myClass) {
+  cout << "Adventure sa inteleg, buna alegere! Ai dorii ca acesta sa fie multiplayer sau singleplayer?" << endl << "1. Multiplayer" << endl << "2. SinglePlayer" << endl;
+  int choice;
+  cin >> choice;
+  switch (choice) {
+  case 1:
+    Adventure_Multiplayer(myClass);
+    break;
+  case 2:
+    Adventure_Singleplayer(myClass);
+    break;
+  }
+}
+
+void Shooter_Singleplayer(vector < Joc > & myClass) {
+  cout << "Iti recomand jocul : Halo " << endl << endl << "Numele jocului : Halo " << endl << "Game Engine-ul Jocului : Halo: Combat Evolved " << endl << "Numele Companiei : Bungie Inc " << endl << "Genul Jocului : Shooter " << endl << "Numar total ore de joc : 10 ore " << endl << "Rating : 8.7 " << endl << endl;
+  Menu(myClass);
 
 }
 
-void Shooter_Multiplayer(){
-    cout << "Iti recomand jocul : Call of Duty" << endl << endl ;
-    Menu();
-    }
+void Shooter_Multiplayer(vector < Joc > & myClass) {
+  cout << "Iti recomand jocul : Call of duty 4 " << endl << endl << "Numele jocului : Call of duty 4 " << endl << "Game Engine-ul Jocului : Unreal " << endl << "Numele Companiei : Activision Blizard " << endl << "Genul Jocului : Shooter " << endl << "Numar total ore de joc : 13 ore " << endl << "Rating : 9.3 " << endl << endl;
+  Menu(myClass);
+}
 
-string Joc::getName() const {
+void Moba_Singleplayer(vector < Joc > & myClass) {
+  cout << "Iti recomand jocul : Dota 2 " << endl << endl << "Numele jocului : Dota 2  " << endl << "Game Engine-ul Jocului : Source 2" << endl << "Numele Companiei : Valve " << endl << "Genul Jocului : Moba " << endl << "Numar total ore de joc : 1800 ore " << endl << "Rating : 9 " << endl << endl;
+  Menu(myClass);
+
+}
+void Moba_Multiplayer(vector < Joc > & myClass) {
+  cout << "Iti recomand jocul : League Of Legends " << endl << endl << "Numele jocului : League Of Legends " << endl << "Game Engine-ul Jocului : Unity" << endl << "Numele Companiei : Riot Games " << endl << "Genul Jocului : Moba " << endl << "Numar total ore de joc : 2000 ore " << endl << "Rating : 7.8 " << endl << endl;
+  Menu(myClass);
+}
+
+void Adventure_Singleplayer(vector < Joc > & myClass) {
+  cout << "Iti recomand jocul : The Witcher 3 " << endl << endl << "Numele jocului : The Witcher 3  " << endl << "Game Engine-ul Jocului : REDEngine" << endl << "Numele Companiei : CD Projekt Red " << endl << "Genul Jocului : Adventure " << endl << "Numar total ore de joc : 50 ore " << endl << "Rating : 9.3 " << endl << endl;
+  Menu(myClass);
+
+}
+void Adventure_Multiplayer(vector < Joc > & myClass) {
+  cout << "Iti recomand jocul : Minecraft " << endl << endl << "Numele jocului : Minecraft " << endl << "Game Engine-ul Jocului : Lightweight Java Game Library" << endl << "Numele Companiei : Mojang Studios " << endl << "Genul Jocului : Adventure " << endl << "Numar total ore de joc : 90 " << endl << "Rating : 8.1 " << endl << endl;
+  Menu(myClass);
+}
+
+string Joc::getName() {
   return nume;
 }
 
-int Joc::getHours() const {
+string Joc::getGame_engine() {
+  return game_engine;
+}
+
+string Joc::getGen_Joc() {
+  return gen_joc;
+}
+
+string Joc::getNume_Companie() {
+  return nume_companie;
+}
+
+int Joc::getHours() {
   return ore_totale_de_joc;
+}
+
+double Joc::getRating() {
+  return rating;
 }
