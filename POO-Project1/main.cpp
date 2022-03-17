@@ -71,47 +71,70 @@ class Joc {
     return out;
   }
 
-  friend void fillVector(vector < Joc > & );
-  friend void printVector(const vector < Joc > & );
+  friend void fillVector(vector < Joc > & , int nr_joc, int nr_rec);
+  friend void printVector(const vector < Joc > & , int nr_joc, int nr_rec);
+  friend class Magazin;
 };
 
-void fillVector(vector < Joc > & );
+class Magazin {
+  int nr_jocuri;
+  int nr_recomandari;
+  public:
 
-void printVector(const vector < Joc > & );
+    Magazin() {
+      nr_jocuri = 0;
+      nr_recomandari = 0;
+    }
 
-void RemoveLastGame(vector < Joc > & );
+  int getNrjoc();
+  int getNrRec();
+};
 
-void RecomandaJoc(vector < Joc > & );
+void fillVector(vector < Joc > & , int nr_joc, int nr_rec);
 
-void Shooter(vector < Joc > & );
-void Shooter_Multiplayer(vector < Joc > & );
-void Shooter_Singleplayer(vector < Joc > & );
-void Moba(vector < Joc > & );
-void Moba_Multiplayer(vector < Joc > & );
-void Moba_Singleplayer(vector < Joc > & );
-void Adventure(vector < Joc > & );
-void Adventure_Multiplayer(vector < Joc > & );
-void Adventure_Singleplayer(vector < Joc > & );
+void printVector(const vector < Joc > & , int nr_joc, int nr_rec);
 
-int Menu(vector < Joc > myClass) {
+void RemoveLastGame(vector < Joc > & , int nr_joc, int nr_rec);
+
+void RecomandaJoc(vector < Joc > & , int nr_joc, int nr_rec);
+
+void Shooter(vector < Joc > & , int nr_joc, int nr_rec);
+void Shooter_Multiplayer(vector < Joc > & , int nr_joc, int nr_rec);
+void Shooter_Singleplayer(vector < Joc > & , int nr_joc, int nr_rec);
+void Moba(vector < Joc > & , int nr_joc, int nr_rec);
+void Moba_Multiplayer(vector < Joc > & , int nr_joc, int nr_rec);
+void Moba_Singleplayer(vector < Joc > & , int nr_joc, int nr_rec);
+void Adventure(vector < Joc > & , int nr_joc, int nr_rec);
+void Adventure_Multiplayer(vector < Joc > & , int nr_joc, int nr_rec);
+void Adventure_Singleplayer(vector < Joc > & , int nr_joc, int nr_rec);
+
+int Menu(vector < Joc > myClass, int nr_joc, int nr_rec) {
 
   int choice;
-
   do {
-    cout << "Salut! Ce doresti sa faci mai departe?" << endl << "1. Incarca jocurile " << endl << "2. Afiseaza Jocurile" << endl << "3. Sterge ultimul joc " << endl << "4. Lasa sa-ti recomand un joc!" << endl << "5. Iesi din program" << endl << endl;
+    nr_joc = myClass.size();
+    cout << "Salut! Ce doresti sa faci mai departe?" << endl << endl << "1. Incarca jocurile " << endl << "2. Afiseaza Jocurile" << endl << "3. Sterge ultimul joc " << endl << "4. Lasa sa-ti recomand un joc!" << endl << "5. Iesi din program" << endl << endl;
+    cout << "---------------------------------------" << endl;
+    cout << "Numarul actual de jocuri din magazin : " << nr_joc << endl;
+    cout << "Numarul actual de jocuri recomandate : " << nr_rec << endl;
+    cout << "---------------------------------------" << endl;
     cin >> choice;
     switch (choice) {
     case 1:
-      fillVector(myClass);
+      fillVector(myClass, nr_joc, nr_rec);
       break;
     case 2:
-      printVector(myClass);
+      printVector(myClass, nr_joc, nr_rec);
       break;
     case 3:
-      RemoveLastGame(myClass);
+      if (myClass.size() <= 0) {
+        cout << endl << "Nu mai exista jocuri in Magazin " << endl << endl;
+      } else {
+        RemoveLastGame(myClass, nr_joc, nr_rec);
+      }
       break;
     case 4:
-      RecomandaJoc(myClass);
+      RecomandaJoc(myClass, nr_joc, nr_rec);
       break;
     case 5:
       return 0;
@@ -123,12 +146,18 @@ int Menu(vector < Joc > myClass) {
 }
 int main() {
 
+  Magazin Mg;
+  int nr_joc;
+  int nr_rec;
+
+  nr_joc = Mg.getNrjoc();
+  nr_rec = Mg.getNrRec();
   vector < Joc > myClass;
-  Menu(myClass);
+  Menu(myClass, nr_joc, nr_rec);
 
 }
 
-void fillVector(vector < Joc > & newMyClass) {
+void fillVector(vector < Joc > & newMyClass, int nr_joc, int nr_rec) {
   Joc aux;
 
   cout << " Introduceti numarul total de jocuri : ";
@@ -145,7 +174,7 @@ void fillVector(vector < Joc > & newMyClass) {
   cout << endl;
 }
 
-void RemoveLastGame(vector < Joc > & newMyClass) {
+void RemoveLastGame(vector < Joc > & newMyClass, int nr_joc, int nr_rec) {
   newMyClass.pop_back();
 }
 
@@ -158,7 +187,7 @@ Joc::Joc(string name, string nume_comp, string engine_joc, string gen, int hours
   rating = rating_;
 }
 
-void printVector(const vector < Joc > & newMyClass) {
+void printVector(const vector < Joc > & newMyClass, int nr_joc, int nr_rec) {
 
   unsigned int size = newMyClass.size();
 
@@ -168,99 +197,113 @@ void printVector(const vector < Joc > & newMyClass) {
   }
 }
 
-void RecomandaJoc(vector < Joc > & myClass) {
+void RecomandaJoc(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Iti voi adresa o serie de intrebari, iar pe baza acestor raspunsuri iti voi recomanda un joc!" << endl << "Pentru inceput : Ce gen de jocuri preferi? " << endl << "1.Shooter " << endl << "2. Moba " << endl << "3. Adventure " << endl;
   int choice;
   cin >> choice;
   switch (choice) {
   case 1:
-    Shooter(myClass);
+    Shooter(myClass, nr_joc, nr_rec);
     break;
   case 2:
-    Moba(myClass);
+    Moba(myClass, nr_joc, nr_rec);
     break;
   case 3:
-    Adventure(myClass);
+    Adventure(myClass, nr_joc, nr_rec);
     break;
 
   }
 }
 
-void Shooter(vector < Joc > & myClass) {
+void Shooter(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Shooter sa inteleg, buna alegere! Ai dorii ca acesta sa fie multiplayer sau singleplayer?" << endl << "1. Multiplayer" << endl << "2. SinglePlayer" << endl;
   int choice;
   cin >> choice;
   switch (choice) {
   case 1:
-    Shooter_Multiplayer(myClass);
+    Shooter_Multiplayer(myClass, nr_joc, nr_rec);
     break;
   case 2:
-    Shooter_Singleplayer(myClass);
+    Shooter_Singleplayer(myClass, nr_joc, nr_rec);
     break;
   }
 }
 
-void Moba(vector < Joc > & myClass) {
+void Moba(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Moba sa inteleg, buna alegere! Ai dorii ca acesta sa fie multiplayer sau singleplayer?" << endl << "1. Multiplayer" << endl << "2. SinglePlayer" << endl;
   int choice;
   cin >> choice;
   switch (choice) {
   case 1:
-    Moba_Multiplayer(myClass);
+    Moba_Multiplayer(myClass, nr_joc, nr_rec);
     break;
   case 2:
-    Moba_Singleplayer(myClass);
+    Moba_Singleplayer(myClass, nr_joc, nr_rec);
     break;
   }
 }
 
-void Adventure(vector < Joc > & myClass) {
+void Adventure(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Adventure sa inteleg, buna alegere! Ai dorii ca acesta sa fie multiplayer sau singleplayer?" << endl << "1. Multiplayer" << endl << "2. SinglePlayer" << endl;
   int choice;
   cin >> choice;
   switch (choice) {
   case 1:
-    Adventure_Multiplayer(myClass);
+    Adventure_Multiplayer(myClass, nr_joc, nr_rec);
     break;
   case 2:
-    Adventure_Singleplayer(myClass);
+    Adventure_Singleplayer(myClass, nr_joc, nr_rec);
     break;
   }
 }
 
-void Shooter_Singleplayer(vector < Joc > & myClass ) {
+void Shooter_Singleplayer(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Iti recomand jocul : Halo " << endl << endl << "Numele jocului : Halo " << endl << "Game Engine-ul Jocului : Halo: Combat Evolved " << endl << "Numele Companiei : Bungie Inc " << endl << "Genul Jocului : Shooter " << endl << "Numar total ore de joc : 10 ore " << endl << "Rating : 8.7 " << endl << endl;
-  Menu(myClass);
+  nr_rec++;
+  Menu(myClass, nr_joc, nr_rec);
 
 }
 
-void Shooter_Multiplayer(vector < Joc > & myClass) {
+void Shooter_Multiplayer(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Iti recomand jocul : Call of duty 4 " << endl << endl << "Numele jocului : Call of duty 4 " << endl << "Game Engine-ul Jocului : Unreal " << endl << "Numele Companiei : Activision Blizard " << endl << "Genul Jocului : Shooter " << endl << "Numar total ore de joc : 13 ore " << endl << "Rating : 9.3 " << endl << endl;
-  Menu(myClass);
+  nr_rec++;
+  Menu(myClass, nr_joc, nr_rec);
 }
 
-void Moba_Singleplayer(vector < Joc > & myClass) {
+void Moba_Singleplayer(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Iti recomand jocul : Dota 2 " << endl << endl << "Numele jocului : Dota 2  " << endl << "Game Engine-ul Jocului : Source 2" << endl << "Numele Companiei : Valve " << endl << "Genul Jocului : Moba " << endl << "Numar total ore de joc : 1800 ore " << endl << "Rating : 9 " << endl << endl;
-  Menu(myClass);
+  nr_rec++;
+  Menu(myClass, nr_joc, nr_rec);
 
 }
-void Moba_Multiplayer(vector < Joc > & myClass) {
+void Moba_Multiplayer(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Iti recomand jocul : League Of Legends " << endl << endl << "Numele jocului : League Of Legends " << endl << "Game Engine-ul Jocului : Unity" << endl << "Numele Companiei : Riot Games " << endl << "Genul Jocului : Moba " << endl << "Numar total ore de joc : 2000 ore " << endl << "Rating : 7.8 " << endl << endl;
-  Menu(myClass);
+  nr_rec++;
+  Menu(myClass, nr_joc, nr_rec);
 }
 
-void Adventure_Singleplayer(vector < Joc > & myClass) {
+void Adventure_Singleplayer(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Iti recomand jocul : The Witcher 3 " << endl << endl << "Numele jocului : The Witcher 3  " << endl << "Game Engine-ul Jocului : REDEngine" << endl << "Numele Companiei : CD Projekt Red " << endl << "Genul Jocului : Adventure " << endl << "Numar total ore de joc : 50 ore " << endl << "Rating : 9.3 " << endl << endl;
-  Menu(myClass);
+  nr_rec++;
+  Menu(myClass, nr_joc, nr_rec);
 
 }
-void Adventure_Multiplayer(vector < Joc > & myClass) {
+void Adventure_Multiplayer(vector < Joc > & myClass, int nr_joc, int nr_rec) {
   cout << "Iti recomand jocul : Minecraft " << endl << endl << "Numele jocului : Minecraft " << endl << "Game Engine-ul Jocului : Lightweight Java Game Library" << endl << "Numele Companiei : Mojang Studios " << endl << "Genul Jocului : Adventure " << endl << "Numar total ore de joc : 90 " << endl << "Rating : 8.1 " << endl << endl;
-  Menu(myClass);
+  nr_rec++;
+  Menu(myClass, nr_joc, nr_rec);
 }
 
 string Joc::getName() {
   return nume;
+}
+
+int Magazin::getNrjoc() {
+  return nr_jocuri;
+}
+
+int Magazin::getNrRec() {
+  return nr_recomandari;
 }
 
 string Joc::getGame_engine() {
